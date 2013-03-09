@@ -78,7 +78,7 @@
 						function initElemDialog(){
 							$('#txtid_project').val('');
 							$('#txtproject').val('');
-							$('#txtOwner_id').val('');	
+							$('#txtowner_id').val('');	
 						}
 						
 						$(function(){
@@ -131,17 +131,15 @@
 											data = {
 													"ID":$('#txtid_project').val(),
 													"Name":$('#txtproject').val(), 
-													"OwnerID":$('#txtOwner_id').val(), 
+													"OwnerID":$('#txtowner_id').val()
 													}
 													
 											url = 'http://10.11.145.91:1342/ServiceProject.svc/projects/update';
 										}
 										else {
 											data = {
-													"ID":$('#txtid_project').val(),
 													"Name":$('#txtproject').val(), 
-													"OwnerID":$('#txtOwner_id').val(), 
-
+													"OwnerID":$('#txtowner_id').val() 
 													}
 											url = 'http://10.11.145.91:1342/ServiceProject.svc/projects/create';
 										}
@@ -185,7 +183,7 @@
 								success: function(response){          
 									$('#txtid_project').val(response.Data.ID);
 									$('#txtproject').val(response.Data.Name);
-									$('#txtOwner_id').val(response.Data.OwnerID);
+									$('#txtowner_id').val(response.Data.OwnerID);
 									$('#dialog').dialog('open');
 								},
 								error: function() {
@@ -286,13 +284,13 @@
 							</p>
 							<p>
 								<label for="txtproject">Name:</label>
-								<input type="text" id="txtproject" onBlur="validate('name');" />
+								<input type="text" id="txtproject" onBlur="validate('project');" />
 								<span id="err_project" class="info"></span>
 							</p>
 							<p>
-								<label for="txtownerID">OwnerID:</label>
-								<input type="text" id="txtownerID" onBlur="validate('ownerID');" />
-								<span id="errownerID" class="info"></span>
+								<label for="txtowner_id">OwnerID:</label>
+								<input type="text" id="txtowner_id" onBlur="validate('owner_id');" />
+								<span id="err_owner_id" class="info"></span>
 							</p>
 							</fieldset>
 						</div>
