@@ -69,7 +69,7 @@
 				</div>
 			</div>
 			<div id="content">
-				<p id="le_titre">Categories</p>
+				<p id="le_titre">States</p>
 				<div id="le_contenu">
 					<script type="text/javascript" language="javascript">
 						function validate(elem){
@@ -82,13 +82,13 @@
 						}
 						
 						function initErr(){
-							$("#errid_category").html("");	
-							$("#errname").html("");	
+							$("#errid_state").html("");	
+							$("#errlabel").html("");	
 						}		
 						
 						function initElemDialog(){
-							$('#txtid_category').val('');
-							$('#txtname').val('');
+							$('#txtid_state').val('');
+							$('#txtlabel').val('');
 						}
 						
 						$(function(){
@@ -100,7 +100,7 @@
 							lister();
 							
 							// Initialisation des Dialogs
-							// Formulaire de confirmation de la suppression d'un category
+							// Formulaire de confirmation de la suppression d'un state
 							$('#suppr_dialog').dialog({
 								autoOpen: false,
 								width: 380,
@@ -108,10 +108,10 @@
 								modal:true,
 								buttons: {
 									"Oui": function() { 
-										id_category=$("#id_category_suppr").val();
+										id_state=$("#id_state_suppr").val();
 										$.ajax({
 												type: 'DELETE',
-												url: 'http://10.11.145.91:1342/ServiceCategory.svc/categories/'+id_category,
+												url: 'http://10.11.145.91:1342/ServiceState.svc/states/'+id_state,
 												success: function(response){                 
 													lister();													
 												},
@@ -126,7 +126,7 @@
 									}				
 								}
 							});				
-							// Formulaire d'insertion/modification d'un category
+							// Formulaire d'insertion/modification d'un state
 							$('#dialog').dialog({
 								autoOpen: false,
 								width: 400,
@@ -137,19 +137,19 @@
 										/* traitement AJAX de la mise  jour*/
 										var data;
 										var url;
-										if ($('#txtid_category').val() != "") {
+										if ($('#txtid_state').val() != "") {
 											data = {
-													"ID":$('#txtid_category').val(),
-													"Name":$('#txtname').val()
+													"ID":$('#txtid_state').val(),
+													"Label":$('#txtlabel').val()
 													}
 													
-											url = 'http://10.11.145.91:1342/ServiceCategory.svc/categories/update';
+											url = 'http://10.11.145.91:1342/ServiceState.svc/states/update';
 										}
 										else {
 											data = {
-													"Name":$('#txtname').val()
+													"Label":$('#txtlabel').val()
 													}
-											url = 'http://10.11.145.91:1342/ServiceCategory.svc/categories/create';
+											url = 'http://10.11.145.91:1342/ServiceState.svc/states/create';
 										}
 										
 										$.ajax({
@@ -174,23 +174,23 @@
 							});		
 						});	
 						
-						function suppr_onclick(id_category){
-							$("#id_category_suppr").val(id_category);
-							$("#category_suppr").html(">>"+$('#id_category'+id_category).html()+"<<");
+						function suppr_onclick(id_state){
+							$("#id_state_suppr").val(id_state);
+							$("#state_suppr").html(">>"+$('#id_state'+id_state).html()+"<<");
 							$('#suppr_dialog').dialog('open');
 							return false;
 						}
 						
-						function modif_onclick(id_category){
+						function modif_onclick(id_state){
 							initErr();
 							
 							$.ajax({
 								type: 'GET',
-								url: 'http://10.11.145.91:1342/ServiceCategory.svc/categories/'+id_category,
+								url: 'http://10.11.145.91:1342/ServiceState.svc/states/'+id_state,
 								dataType: 'json',
 								success: function(response){          
-									$('#txtid_category').val(response.Data.ID);
-									$('#txtname').val(response.Data.Name);
+									$('#txtid_state').val(response.Data.ID);
+									$('#txtlabel').val(response.Data.Label);
 									$('#dialog').dialog('open');
 								},
 								error: function() {
@@ -223,11 +223,11 @@
 						function lister() {
 							$.ajax({
 								type: 'GET',
-								url: 'ajax/categories.json',
-								// TODO remettre : 'http://10.11.145.91:1342/ServiceCategory.svc/categories' 
+								url: 'ajax/states.json',
+								// TODO remettre : 'http://10.11.145.91:1342/ServiceState.svc/states' 
 								dataType: 'json',
 								success: function(response){          
-									construireListeCategories(response.Data);	
+									construireListeStates(response.Data);	
 								},
 								error: function() {
 									alert('erreur');                   
@@ -235,14 +235,14 @@
 							});
 						}
 						
-						function construireListeCategories(data) {
+						function construireListeStates(data) {
 							var contenuHTML = '';
 							contenuHTML += '<table width="100%">';
 							contenuHTML += '<thead>';
 							contenuHTML += '<tr class="ui-widget-header">';
 							contenuHTML += '<th style="width:5%;text-align:center">Id</th>';
-							contenuHTML += '<th style="width:30%;text-align:center">Name</th>';
-							contenuHTML += '<th colspan="2" style="width:30%;text-align:center"><a href="#" id="ajout" onclick="ajout_onclick();">Ajout category</a></th>';
+							contenuHTML += '<th style="width:30%;text-align:center">Label</th>';
+							contenuHTML += '<th colspan="2" style="width:30%;text-align:center"><a href="#" id="ajout" onclick="ajout_onclick();">Ajout state</a></th>';
 							contenuHTML += '</tr>';
 							contenuHTML += '</thead>';
 							contenuHTML += '<tbody>';		
@@ -256,9 +256,9 @@
 										classTr = "";
 									}
 									contenuHTML += '<tr class='+classTr+' id="ligne'+data[i].ID+'">';
-									contenuHTML += '<td style="width:5%;text-align:center"><span id="id_category'+data[i].ID+'">'+data[i].ID+'</span></td>';
+									contenuHTML += '<td style="width:5%;text-align:center"><span id="id_state'+data[i].ID+'">'+data[i].ID+'</span></td>';
 									contenuHTML += '<td style="width:30%;text-align:center">';
-									contenuHTML += '<span id="name'+data[i].ID+'">'+data[i].Name+'</span>';
+									contenuHTML += '<span id="label'+data[i].ID+'">'+data[i].Label+'</span>';
 									contenuHTML += '</td>';
 									contenuHTML += '<td style="width:15%;text-align:center"><a href="#" id="modif" onclick="modif_onclick('+data[i].ID+');">Modif.</a></td>';
 									contenuHTML += '<td style="width:15%;text-align:center"><a href="#" id="suppr" onclick="suppr_onclick('+data[i].ID+');">Suppr.</a></td>';
@@ -272,35 +272,35 @@
 						}
 					
 					</script>
-					<h2>Categories</h2>
+					<h2>States</h2>
 					<div id="liste">
 					
 					</div>
 					
-					<div id="dialog" title="Info Category">
+					<div id="dialog" title="Info State">
 						<form>
 						<div id="formBlock">
 							<fieldset>
-							<legend>Information sur la category</legend>
+							<legend>Information sur la state</legend>
 							<p style="display:none;">
-								<label for="txtid_category">Id:</label>
-								<input type="text" id="txtid_category" readonly="readonly" />
-								<span id="errid_category" class="info"></span>
+								<label for="txtid_state">Id:</label>
+								<input type="text" id="txtid_state" readonly="readonly" />
+								<span id="errid_state" class="info"></span>
 							</p>
 							<p>
-								<label for="txtname">Name:</label>
-								<input type="text" id="txtname" onBlur="validate('name');" />
-								<span id="errname" class="info"></span>
+								<label for="txtlabel">Label:</label>
+								<input type="text" id="txtlabel" onBlur="validate('label');" />
+								<span id="errlabel" class="info"></span>
 							</p>
 							</fieldset>
 						</div>
 						</form>
 					</div>				
 					
-					<div id="suppr_dialog" title="Suppression d'un category">
-						<input type="hidden" id="id_category_suppr" value="">
-						<h2>Voulez-vous vraiment supprimer cette category 
-							<br><span id="category_suppr"></span> ?
+					<div id="suppr_dialog" title="Suppression d'un state">
+						<input type="hidden" id="id_state_suppr" value="">
+						<h2>Voulez-vous vraiment supprimer cette state 
+							<br><span id="state_suppr"></span> ?
 						</h2>
 					</div>
 				</div>
