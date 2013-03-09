@@ -39,7 +39,7 @@
 							<ul class="menu">
 								<li class="actif"><a href="javascript:void(0)">Users</a>
 									<ul class="sousmenu">
-										<li><a href="user.html">Liste</a></li>			
+										<li><a href="users.html">Liste</a></li>			
 									</ul>
 								</li>
 							
@@ -63,7 +63,7 @@
 				</div>
 			</div>
 			<div id="content">
-				<p id="le_titre">Users</p>
+				<p id="le_titre">Categories</p>
 				<div id="le_contenu">
 					<script type="text/javascript" language="javascript">
 						function validate(elem){
@@ -76,21 +76,17 @@
 						}
 						
 						function initErr(){
-							$("#errid_user").html("");	
-							$("#errusername").html("");
-							$("#errpassword").html("");	
-							$("#erremail").html("");	
+							$("#errid_category").html("");	
+							$("#errname").html("");	
 						}		
 						
 						function initElemDialog(){
-							$('#txtid_user').val('');
-							$('#txtusername').val('');
-							$('#txtpassword').val('');
-							$('#txtemail').val('');	
+							$('#txtid_category').val('');
+							$('#txtname').val('');
 						}
 						
 						$(function(){
-							// Initialisation des lments du dialogues	
+							// Initialisation des lments du dialogue	
 							initErr();
 							initElemDialog();
 							
@@ -98,7 +94,7 @@
 							lister();
 							
 							// Initialisation des Dialogs
-							// Formulaire de confirmation de la suppression d'un user
+							// Formulaire de confirmation de la suppression d'un category
 							$('#suppr_dialog').dialog({
 								autoOpen: false,
 								width: 380,
@@ -106,10 +102,10 @@
 								modal:true,
 								buttons: {
 									"Oui": function() { 
-										id_user=$("#id_user_suppr").val();
+										id_category=$("#id_category_suppr").val();
 										$.ajax({
 												type: 'DELETE',
-												url: 'http://10.11.145.91:1342/ServiceUser.svc/users/'+id_user,
+												url: 'http://10.11.145.91:1342/ServiceCategory.svc/categories/'+id_category,
 												success: function(response){                 
 													lister();													
 												},
@@ -124,7 +120,7 @@
 									}				
 								}
 							});				
-							// Formulaire d'insertion/modification d'un user
+							// Formulaire d'insertion/modification d'un category
 							$('#dialog').dialog({
 								autoOpen: false,
 								width: 400,
@@ -135,25 +131,19 @@
 										/* traitement AJAX de la mise  jour*/
 										var data;
 										var url;
-										if ($('#txtid_user').val() != "") {
+										if ($('#txtid_category').val() != "") {
 											data = {
-													"ID":$('#txtid_user').val(),
-													"Username":$('#txtusername').val(), 
-													"Email":$('#txtemail').val(), 
-													"Password":$('#txtpassword').val(), 
-													"Admin":$('#txtadmin').val()
+													"ID":$('#txtid_category').val(),
+													"Name":$('#txtname').val()
 													}
 													
-											url = 'http://10.11.145.91:1342/ServiceUser.svc/users/update';
+											url = 'http://10.11.145.91:1342/ServiceCategory.svc/categories/update';
 										}
 										else {
 											data = {
-													"Username":$('#txtusername').val(), 
-													"Email":$('#txtemail').val(), 
-													"Password":$('#txtpassword').val(), 
-													"Admin":$('#txtadmin').val()
+													"Name":$('#txtname').val()
 													}
-											url = 'http://10.11.145.91:1342/ServiceUser.svc/users/create';
+											url = 'http://10.11.145.91:1342/ServiceCategory.svc/categories/create';
 										}
 										
 										$.ajax({
@@ -178,26 +168,23 @@
 							});		
 						});	
 						
-						function suppr_onclick(id_user){
-							$("#id_user_suppr").val(id_user);
-							$("#user_suppr").html(">>"+$('#id_user'+id_user).html()+"<<");
+						function suppr_onclick(id_category){
+							$("#id_category_suppr").val(id_category);
+							$("#category_suppr").html(">>"+$('#id_category'+id_category).html()+"<<");
 							$('#suppr_dialog').dialog('open');
 							return false;
 						}
 						
-						function modif_onclick(id_user){
+						function modif_onclick(id_category){
 							initErr();
 							
 							$.ajax({
 								type: 'GET',
-								url: 'http://10.11.145.91:1342/ServiceUser.svc/users/'+id_user,
+								url: 'http://10.11.145.91:1342/ServiceCategory.svc/categories/'+id_category,
 								dataType: 'json',
 								success: function(response){          
-									$('#txtid_user').val(id_user);
-									$('#txtusername').val(response.Data.Username);
-									$('#txtpassword').val(response.Data.Password);
-									$('#txtemail').val(response.Data.Email);
-									$('#txtadmin').val(response.Data.Admin);
+									$('#txtid_category').val(response.Data.ID);
+									$('#txtname').val(response.Data.Name);
 									$('#dialog').dialog('open');
 								},
 								error: function() {
@@ -230,11 +217,11 @@
 						function lister() {
 							$.ajax({
 								type: 'GET',
-								url: 'ajax/users.json',
-								// TODO remettre : 'http://10.11.145.91:1342/ServiceUser.svc/users' 
+								url: 'ajax/categories.json',
+								// TODO remettre : 'http://10.11.145.91:1342/ServiceCategory.svc/categories' 
 								dataType: 'json',
 								success: function(response){          
-									construireListeUsers(response.Data);	
+									construireListeCategories(response.Data);	
 								},
 								error: function() {
 									alert('erreur');                   
@@ -242,16 +229,14 @@
 							});
 						}
 						
-						function construireListeUsers(data) {
+						function construireListeCategories(data) {
 							var contenuHTML = '';
 							contenuHTML += '<table width="100%">';
 							contenuHTML += '<thead>';
 							contenuHTML += '<tr class="ui-widget-header">';
 							contenuHTML += '<th style="width:5%;text-align:center">Id</th>';
-							contenuHTML += '<th style="width:30%;text-align:center">Username</th>';
-							contenuHTML += '<th style="width:15%;text-align:center">Email</th>';
-							contenuHTML += '<th style="width:15%;text-align:center">Admin</th>';
-							contenuHTML += '<th colspan="2" style="width:30%;text-align:center"><a href="#" id="ajout" onclick="ajout_onclick();">Ajout user</a></th>';
+							contenuHTML += '<th style="width:30%;text-align:center">Name</th>';
+							contenuHTML += '<th colspan="2" style="width:30%;text-align:center"><a href="#" id="ajout" onclick="ajout_onclick();">Ajout category</a></th>';
 							contenuHTML += '</tr>';
 							contenuHTML += '</thead>';
 							contenuHTML += '<tbody>';		
@@ -265,12 +250,10 @@
 										classTr = "";
 									}
 									contenuHTML += '<tr class='+classTr+' id="ligne'+data[i].ID+'">';
-									contenuHTML += '<td style="width:5%;text-align:center"><span id="id_user'+data[i].ID+'">'+data[i].ID+'</span></td>';
+									contenuHTML += '<td style="width:5%;text-align:center"><span id="id_category'+data[i].ID+'">'+data[i].ID+'</span></td>';
 									contenuHTML += '<td style="width:30%;text-align:center">';
-									contenuHTML += '<span id="username'+data[i].ID+'">'+data[i].Username+'</span>';
+									contenuHTML += '<span id="name'+data[i].ID+'">'+data[i].Name+'</span>';
 									contenuHTML += '</td>';
-									contenuHTML += '<td style="width:15%;text-align:center"><span id="email'+data[i].ID+'">'+data[i].Email+'</span></td>';
-									contenuHTML += '<td style="width:15%;text-align:center"><span id="admin'+data[i].ID+'">'+data[i].Admin+'</span></td>';
 									contenuHTML += '<td style="width:15%;text-align:center"><a href="#" id="modif" onclick="modif_onclick('+data[i].ID+');">Modif.</a></td>';
 									contenuHTML += '<td style="width:15%;text-align:center"><a href="#" id="suppr" onclick="suppr_onclick('+data[i].ID+');">Suppr.</a></td>';
 									contenuHTML += '</tr>';
@@ -283,53 +266,35 @@
 						}
 					
 					</script>
-					<h2>Users</h2>
+					<h2>Categories</h2>
 					<div id="liste">
 					
 					</div>
 					
-					<div id="dialog" title="Info User">
+					<div id="dialog" title="Info Category">
 						<form>
 						<div id="formBlock">
 							<fieldset>
-							<legend>Information sur l'user</legend>
+							<legend>Information sur la category</legend>
 							<p style="display:none;">
-								<label for="txtid_user">Id:</label>
-								<input type="text" id="txtid_user" readonly="readonly" />
-								<span id="errid_user" class="info"></span>
+								<label for="txtid_category">Id:</label>
+								<input type="text" id="txtid_category" readonly="readonly" />
+								<span id="errid_category" class="info"></span>
 							</p>
 							<p>
-								<label for="txtusername">Username:</label>
-								<input type="text" id="txtusername" onBlur="validate('username');" />
-								<span id="errusername" class="info"></span>
-							</p>
-							<p>
-								<label for="txtpassword">Password:</label>
-								<input type="password" id="txtpassword" onBlur="validate('username');" />
-								<span id="errpassword" class="info"></span>
-							</p>
-							<p>
-								<label for="txtemail">Email:</label>
-								<input type="text" id="txtemail" onBlur="validate('email');" />
-								<span id="erremail" class="info"></span>
-							</p>
-							<p>
-								<label for="txtadmin">Admin:</label>
-								<select id="txtadmin">
-									<option value="false">false</option>
-									<option value="true">true</option>
-								</select>
-								<span id="erradmin" class="info"></span>
+								<label for="txtname">Name:</label>
+								<input type="text" id="txtname" onBlur="validate('name');" />
+								<span id="errname" class="info"></span>
 							</p>
 							</fieldset>
 						</div>
 						</form>
 					</div>				
 					
-					<div id="suppr_dialog" title="Suppression d'un user">
-						<input type="hidden" id="id_user_suppr" value="">
-						<h2>Voulez-vous vraiment supprimer cet user 
-							<br><span id="user_suppr"></span> ?
+					<div id="suppr_dialog" title="Suppression d'un category">
+						<input type="hidden" id="id_category_suppr" value="">
+						<h2>Voulez-vous vraiment supprimer cette category 
+							<br><span id="category_suppr"></span> ?
 						</h2>
 					</div>
 				</div>
