@@ -1,0 +1,20 @@
+{
+    "ErrorCollection": [],
+    "OperationSuccess": true,
+    "Data": [
+        {
+            "Admin": true,
+            "Email": "antoine.roger@ingesup.com",
+            "ID": 1,
+            "Password": "caca",
+            "Username": "Toin3"
+        },
+        {
+            "Admin": true,
+            "Email": "florian.fischer@ingesup.com",
+            "ID": 2,
+            "Password": "caca",
+            "Username": "Flow"
+        }
+    ]
+}

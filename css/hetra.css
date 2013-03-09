@@ -1,0 +1,130 @@
+body{
+	font: 11px "Trebuchet MS", sans-serif;
+	background-image: url(../images/bar_hetra.png);
+	background-position: center;
+	background-repeat: repeat-y;
+	background-attachment: scroll;
+}
+#container { 
+	position: relative;
+	margin: 0px auto; 
+	width:960px;
+}
+#left {
+	float:left;
+	width: 192px;
+	position: fixed;
+	margin-left: 4px;
+}
+/*.menu{
+	font: 11px "Trebuchet MS", sans-serif;
+}*/
+		
+#left li {
+	list-style-type:none;
+}
+/*ul.menu li, #groupeware, #deconnexion {
+	background-color: #35A6FF;
+	margin: 5px;
+	padding: 5px;
+}
+.sousmenu{
+	font: 11px "Trebuchet MS", sans-serif;
+	background-color:#ffc0c0;
+	margin-left:0px;
+	text-align:left;
+	visibility:hidden; 
+	height:0px;
+}
+ul.menu .sousmenu ul li {
+	background-color:#ffc0c0;
+}
+ul.menu .sousmenu ul {
+	padding-left: 10px;
+}*/		
+#content {
+	position:relative;
+	float:left;
+	margin-left: 200px;
+}
+.demoHeaders {
+	margin-top: 2em;
+}
+.info { 
+	background-color:red;
+	color:white;
+	font-size:11px;
+	font-weight:bold;
+}
+ul#icons {
+	margin: 0;
+	padding: 0;
+}
+ul#icons li {
+	margin: 2px;
+	position: relative;
+	padding: 4px 0;
+	cursor: pointer;
+	float: left;
+	list-style: none;
+}
+ul#icons span.ui-icon {
+	float: left; 
+	margin: 0 4px;
+}
+#formBlock label, #formBlock_tarif_terrain  label, #formBlock_tarif_maison  label, #formBlock_propriete_contribuable label{
+	background-color: #ccc;
+	display: block; float: left;
+	width: 25%; text-align: right;
+	margin: 1px 2px;
+	padding: 2px 0;
+}
+#formBlock input, #formBlock_tarif_terrain input, #formBlock_tarif_maison input, #formBlock_propriete_contribuable input {
+	float: left;
+	width: 60%; margin-bottom: 4px;
+	margin-top: 1px; padding: 1px;
+}
+#formBlock span, #formBlock_tarif_terrain span, #formBlock_tarif_maison span, #formBlock_propriete_contribuable span{
+	float:left;
+	/*width:15%;*/
+	margin:1px 2px;
+	padding: 2px 0;
+}
+table { 
+	font: 11px "Trebuchet MS", sans-serif;
+}
+.alt {
+	background-color:#c9c9c9;
+	color:#3c3c3c;
+}
+.ligne_choisie {
+	background-color:#2E7CE5;
+	color:#fff;
+}
+h2 span {
+	color:red;
+}
+h2 {
+	color:#003366;
+}
+.clear {
+	height:5px;
+	clear:both;
+}
+
+.unite {
+	color:red;
+}
+.total {
+	text-align: right;
+	font: 12px "Trebuchet MS", sans-serif;	
+	color:red;
+}
+h3 span{
+	color:red;
+}
+#annee_active, #date_prelevement {
+	padding:5px;
+	font: 11px "Trebuchet MS", sans-serif;	
+	color:#2E7CE5;
+}
