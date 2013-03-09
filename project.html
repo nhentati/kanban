@@ -39,13 +39,25 @@
 							<ul class="menu">
 								<li class="actif"><a href="javascript:void(0)">Users</a>
 									<ul class="sousmenu">
-										<li><a href="user.html">Liste</a></li>			
+										<li><a href="users.html">Liste</a></li>			
 									</ul>
 								</li>
 							
 								<li class=""><a href="javascript:void(0)">Projects</a>
 									<ul class="sousmenu">
 										<li><a href="project.html">Liste</a></li>
+									</ul>
+								</li>
+								
+								<li class=""><a href="javascript:void(0)">Categories</a>
+									<ul class="sousmenu">
+										<li><a href="category.html">Liste</a></li>
+									</ul>
+								</li>
+								
+								<li class=""><a href="javascript:void(0)">States</a>
+									<ul class="sousmenu">
+										<li><a href="state.html">Liste</a></li>
 									</ul>
 								</li>
 							</ul>
@@ -220,7 +232,7 @@
 								// TODO remettre : 'http://10.11.145.91:1342/ServiceProject.svc/projects' 
 								dataType: 'json',
 								success: function(response){          
-									construireListeUsers(response.Data);	
+									construireListeProjects(response.Data);	
 								},
 								error: function() {
 									alert('erreur');                   
@@ -228,7 +240,7 @@
 							});
 						}
 						
-						function construireListeUsers(data) {
+						function construireListeProjects(data) {
 							var contenuHTML = '';
 							contenuHTML += '<table width="100%">';
 							contenuHTML += '<thead>';
@@ -252,7 +264,7 @@
 									contenuHTML += '<tr class='+classTr+' id="ligne'+data[i].ID+'">';
 									contenuHTML += '<td style="width:5%;text-align:center"><span id="id_project'+data[i].ID+'">'+data[i].ID+'</span></td>';
 									contenuHTML += '<td style="width:30%;text-align:center">';
-									contenuHTML += '<span id="name'+data[i].ID+'">'+data[i].Name+'</span>';
+									contenuHTML += '<span id="name'+data[i].ID+'"><a href="postit.html?idProject='+data[i].ID+'">'+data[i].Name+'</a></span>';
 									contenuHTML += '</td>';
 									contenuHTML += '<td style="width:15%;text-align:center"><span id="ownerID'+data[i].ID+'">'+data[i].OwnerID+'</span></td>';
 									contenuHTML += '<td style="width:15%;text-align:center"><a href="#" id="modif" onclick="modif_onclick('+data[i].ID+');">Modif.</a></td>';
