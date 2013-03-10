@@ -20,7 +20,47 @@
             }
         </style>
 
-        <script type="text/javascript">
+		<script type="text/javascript" language="javascript">
+						function validate(elem){
+							if ($("#txt_"+elem).val()==""){
+								$("#err_"+elem).html("&nbsp;Err&nbsp;");
+							}
+							else{
+								$("#err_"+elem).html("");
+							}
+						}
+						
+						function initErr(){
+							$("#err_id_postit").html("");	
+							$("#err_name").html("");
+							$("#err_content").html("");	
+							$("#err_completed_at").html("");
+							$("#err_completion").html("");	
+							$("#err_creted_at").html("");	
+							$("#err_estimated_time").html("");	
+							$("#err_priority").html("");
+							$("#err_spend_time").html("");	
+							$("#err_step_id").html("");	
+							$("#err_update_at").html("");	
+						}		
+						
+						function initElemDialog(){
+							$('#txt_id_postit').val('');
+							$('#txt_name').val('');
+							$('#txt_content').val('');
+							$('#txt_completed_at').val('');
+							$('#txt_completion').val('');
+							$('#txt_created_at').val('');		
+							$('#txt_estimated_time').val('');
+							$('#txt_priority').val('');
+							$('#txt_spend_time').val('');
+							$('#txt_step_id').val('');
+							$('#txt_update_at').val('');
+						}
+						
+						
+						
+						
             $(document).ready(function(){
                 $('#container .sortable-list').sortable({
                     connectWith: '#container .sortable-list'
@@ -153,19 +193,44 @@
 						
 			}
 
-            function suppr_onclick(id_postit){
-                $("#id_postit_suppr").val(id_postit);
-                $('#suppr_dialog').dialog('open');
-                return false;
-            }
-
-            function modif_onclick(id_postit){
-                $('#dialog').dialog('open');
-                return false;
-            }
+			function suppr_onclick(id_postit){
+				$("#id_postit_suppr").val(id_postit);
+				$('#suppr_dialog').dialog('open');
+				return false;
+			}
+						
+			function modif_onclick(id_postit){
+				initErr();
+				
+				$.ajax({
+					type: 'GET',
+					url: 'http://10.11.145.91:1342/ServiceProject.svc/projects/'+id_postit,
+					dataType: 'json',
+					success: function(response){          
+						$('#txt_id_postit').val(response.Data.ID);
+						$('#txt_name').val(response.Data.Name);
+						$('#txt_content').val(response.Data.Content);
+						$('#txt_completed_at').val(response.Data.Completed_at);
+						$('#txt_completion').val(response.Data.Completion);
+						$('#txt_created_at').val(response.Data.Created_at);
+						$('#txt_estimated_time').val(response.Data.Estimated_time);
+						$('#txt_priority').val(response.Data.Priority);
+						$('#txt_spend_time').val(response.Data.Spend_time);
+						$('#txt_step_id').val(response.Data.StepID);
+						$('#txt_update_at').val(response.Data.Updated_at);
+						$('#dialog').dialog('open');
+					},
+					error: function() {
+						alert('erreur');                   
+					}
+				});
+				return false;
+			}
 
 
             function ajout_onclick(){
+				initErr();
+				initElemDialog();
                 $('#dialog').dialog('open');
                 return false;
             }
@@ -183,21 +248,62 @@
         <div id="dialog" title="Postit">
             <form>
                 <div id="formBlock">
-                    <p>
-                        <label for="titre">Titre :</label>
-                        <input type="text" id="titre" />
+                    <p style="display:none;">
+						<label for="txtid_project">Id:</label>
+						<input type="text" id="txtid_project" readonly="readonly" />
+						<span id="errid_project" class="info"></span>
+					</p>
+					<p>
+						<label for="txtproject">Name:</label>
+						<input type="text" id="txtproject" onBlur="validate('project');" />
+						<span id="err_project" class="info"></span>
+					</p>
+					<p>
+						<label for="txtauthor">Author : </label>
+						<form name="formulaire">
+						<select name="boite1" onChange="choix(this.form)">
+						<option selected>....Choisissez un auteur....</option>
+						<option>Nader</option>
+						<option>Rija</option>
+						<option>Alain</option>
+						</select> 
+					</p>
+					<p>
+                        <label for="titre">Content :</label>
+                        <input type="text" id="txtcontent" />
                     </p>
                     <p>
-                        <label for="auteur">Auteur :</label>
-                        <input type="text" id="auteur" />
+                        <label for="completed">Completed at :</label>
+                        <input type="text" id="txtcomplated_at" />
                     </p>
                     <p>
-                        <label for="contenu">Contenu :</label>
-                        <textarea id="contenu" rows="2" cols="30"></textarea>
-                    </p>
+                        <label for="txtcompletion">Completion :</label>
+						<input type="text" id="txtcompletion" />
+					</p>
+					
                     <p>
-                        <label for="date">Date :</label>
-                        <input type="text" id="date" readonly="readonly" />
+                        <label for="txtcreated_at">Created at :</label>
+                        <input type="text" id="txtcreated_at" readonly="readonly" />
+                    </p>
+					<p>
+                        <label for="txtestimated_time">Estimated time :</label>
+                        <input type="text" id="txtestimated_time" />
+                    </p>
+					<p>
+                        <label for="txtestimated_time">Priority :</label>
+                        <input type="text" id="txtestimated_time" />
+                    </p>
+					<p>
+                        <label for="txtetime_spend">Spend time :</label>
+                        <input type="text" id="txtetime_spend" />
+                    </p>
+					<p>
+                        <label for="txtstep_id">Step id:</label>
+                        <input type="text" id="txtstep_id" />
+                    </p>
+					<p>
+                        <label for="txtupdate_at">Update at :</label>
+                        <input type="text" id="txtupdate_at" />
                     </p>
                 </div>
             </form>
