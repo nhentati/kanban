@@ -25,49 +25,41 @@
         </style>
 
 		<script type="text/javascript" language="javascript">
-						function validate(elem){
-							if ($("#txt_"+elem).val()==""){
-								$("#err_"+elem).html("&nbsp;Err&nbsp;");
-							}
-							else{
-								$("#err_"+elem).html("");
-							}
-						}
+			function validate(elem){
+				if ($("#txt"+elem).val()==""){
+					$("#err"+elem).html("&nbsp;Err&nbsp;");
+				}
+				else{
+					$("#err"+elem).html("");
+				}
+			}
 						
-						function initErr(){
-							$("#err_id_postit").html("");	
-							$("#err_name").html("");
-							$("#err_content").html("");	
-							$("#err_completed_at").html("");
-							$("#err_completion").html("");	
-							$("#err_creted_at").html("");	
-							$("#err_estimated_time").html("");	
-							$("#err_priority").html("");
-							$("#err_spend_time").html("");	
-							$("#err_step_id").html("");	
-							$("#err_update_at").html("");	
-						}		
+			function initErr(){
+				$("#errid_task").html("");	
+				$("#errname").html("");
+				$("#errcontent").html("");	
+				$("#errcompleted_at").html("");
+				$("#errcompletion").html("");	
+				$("#errcreated_at").html("");	
+				$("#errestimated_time").html("");	
+				$("#errpriority").html("");
+				$("#errspend_time").html("");	
+			}		
 						
-						function initElemDialog(){
-							$('#txt_id_postit').val('');
-							$('#txt_name').val('');
-							$('#txt_content').val('');
-							$('#txt_completed_at').val('');
-							$('#txt_completion').val('');
-							$('#txt_created_at').val('');		
-							$('#txt_estimated_time').val('');
-							$('#txt_priority').val('');
-							$('#txt_spend_time').val('');
-							$('#txt_step_id').val('');
-							$('#txt_update_at').val('');
-						}
-						
-						
-						
-						
-            $(document).ready(function(){
-				$("input#date").datetimepicker();
-				$("input#date").datetimepicker('setDate', new Date());
+			function initElemDialog(){
+				$('#txtid_task').val('');
+				$('#txtname').val('');
+				$('#txtcontent').val('');
+				$('#txtcompletion').val('');
+				$('#txtestimated_time').val('');
+				$('#txtpriority').val('');
+				$('#txtspend_time').val('');
+			}
+			
+			$(document).ready(function(){
+				$("input#txtcreated_at").datetimepicker();				
+				$("input#txtcompleted_at").datetimepicker();			
+				$("input#txtupdate_at").datetimepicker();
             });
 
             $(function(){
@@ -214,20 +206,22 @@
 				
 				$.ajax({
 					type: 'GET',
-					url: 'http://10.11.145.91:1342/ServiceProject.svc/projects/'+id_postit,
+					url: 'http://10.11.145.91:1342/ServiceTask.svc/tasks/'+id_postit,
 					dataType: 'json',
 					success: function(response){          
-						$('#txt_id_postit').val(response.Data.ID);
-						$('#txt_name').val(response.Data.Name);
-						$('#txt_content').val(response.Data.Content);
-						$('#txt_completed_at').val(response.Data.Completed_at);
-						$('#txt_completion').val(response.Data.Completion);
-						$('#txt_created_at').val(response.Data.Created_at);
-						$('#txt_estimated_time').val(response.Data.Estimated_time);
-						$('#txt_priority').val(response.Data.Priority);
-						$('#txt_spend_time').val(response.Data.Spend_time);
-						$('#txt_step_id').val(response.Data.StepID);
-						$('#txt_update_at').val(response.Data.Updated_at);
+						$('#txtid_task').val(response.Data.ID);
+						$('#txtname').val(response.Data.Name);
+						$('#txtcontent').val(response.Data.Content);
+						$('#txtcompleted_at').val(response.Data.Completed_at);
+						$('#txtcompletion').val(response.Data.Completion);
+						$('#txtcreated_at').val(response.Data.Created_at);
+						$('#txtestimated_time').val(response.Data.Estimated_time);
+						$('#txtpriority').val(response.Data.Priority);
+						$('#txtspend_time').val(response.Data.Spend_time);
+						$('#txtstep_id').val(response.Data.StepID);
+						$('#txtupdate_at').val(response.Data.Updated_at);
+						$('#txtcategory').val(response.Data.Category.ID);
+						$('#txtstate').val(response.Data.State.ID);
 						$('#dialog').dialog('open');
 					},
 					error: function() {
@@ -259,58 +253,92 @@
             <form>
                 <div id="formBlock">
                     <p style="display:none;">
-						<label for="txtid_project">Id:</label>
-						<input type="text" id="txtid_project" readonly="readonly" />
-						<span id="errid_project" class="info"></span>
+						<label for="txtid_task">Id:</label>
+						<input type="text" id="txtid_task" readonly="readonly" />
+						<span id="errid_task" class="info"></span>
 					</p>
 					<p>
-						<label for="txtproject">Name:</label>
-						<input type="text" id="txtproject" onBlur="validate('project');" />
-						<span id="err_project" class="info"></span>
+						<label for="txtname">Name:</label>
+						<input type="text" id="txtname" onBlur="validate('name');" />
+						<span id="errname" class="info"></span>
 					</p>
 					<p>
 						<label for="txtauthor">Author : </label>
-						<form name="formulaire">
-						<select name="boite1" onChange="choix(this.form)">
-						<option selected>....Choisissez un auteur....</option>
-						<option>Nader</option>
-						<option>Rija</option>
-						<option>Alain</option>
+						<select name="txtauthor">
+							<option>Nader</option>
+							<option>Rija</option>
+							<option>Alain</option>
 						</select> 
 					</p>
 					<p>
-                        <label for="titre">Content :</label>
-                        <input type="text" id="txtcontent" />
+                        <label for="txtassigne">Assigne :</label>
+                        <select name="txtassigne">
+							<option>Nader</option>
+							<option>Rija</option>
+							<option>Alain</option>
+						</select> 
+                    </p>
+					<p>
+                        <label for="txtcontent">Content :</label>
+                        <textarea row="2" cols="30" id="txtcontent" onBlur="validate('content');"></textarea>
+						<span id="errcontent" class="info"></span>
                     </p>
                     <p>
-                        <label for="completed">Completed at :</label>
-                        <input type="text" id="txtcomplated_at" />
+                        <label for="txtcompleted_at">Completed at :</label>
+                        <input type="text" id="txtcompleted_at" />
+						<span id="errcompleted_at" class="info"></span>
                     </p>
                     <p>
                         <label for="txtcompletion">Completion :</label>
 						<input type="text" id="txtcompletion" />
+						<span id="errcompletion" class="info"></span>
 					</p>
 					
                     <p>
                         <label for="txtcreated_at">Created at :</label>
                         <input type="text" id="txtcreated_at" readonly="readonly" />
+						<span id="errcreated_at" class="info"></span>
                     </p>
 					<p>
                         <label for="txtestimated_time">Estimated time :</label>
                         <input type="text" id="txtestimated_time" />
+						<span id="errestimated_time" class="info"></span>
                     </p>
 					<p>
-                        <label for="txtestimated_time">Priority :</label>
-                        <input type="text" id="txtestimated_time" />
+                        <label for="txtpriority">Priority :</label>
+                        <input type="text" id="txtpriority" />
+						<span id="errpriority" class="info"></span>
                     </p>
 					<p>
-                        <label for="txtetime_spend">Spend time :</label>
-                        <input type="text" id="txtetime_spend" />
+                        <label for="txtspend_time">Spend time :</label>
+                        <input type="text" id="txtspend_time" />
+						<span id="errspend_time" class="info"></span>
                     </p>
 					<p>
-                        <label for="txtstep_id">Step id:</label>
-                        <input type="text" id="txtstep_id" />
+                        <label for="txtstep_id">Step id :</label>
+                        <select name="txtstep_id">
+							<option>Nader</option>
+							<option>Rija</option>
+							<option>Alain</option>
+						</select> 
                     </p>
+					<p>
+                        <label for="txtcategory">Category :</label>
+                        <select name="txtcategory">
+							<option>Nader</option>
+							<option>Rija</option>
+							<option>Alain</option>
+						</select> 
+                    </p>
+					<p>
+                        <label for="txtstate">State :</label>
+                        <select name="txtstate">
+							<option>Nader</option>
+							<option>Rija</option>
+							<option>Alain</option>
+						</select> 
+                    </p>
+
 					<p>
                         <label for="txtupdate_at">Update at :</label>
                         <input type="text" id="txtupdate_at" />
@@ -320,7 +348,7 @@
         </div>
 
         <div id="suppr_dialog" title="Suppression d'un postit">
-            <input type="hidden" id="id_postit" value="">
+            <input type="hidden" id="id_postit_suppr" value="">
             <h2>Voulez-vous vraiment supprimer ce postit ? </h2>
         </div>
     </body>
