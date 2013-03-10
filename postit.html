@@ -5,14 +5,18 @@
         <meta name="description" content="">
 
         <link rel="stylesheet" href="css/stylePostit.css" />
-
+		
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.1/themes/base/jquery-ui.css" />
         <link type="text/css" href="http://code.jquery.com/ui/1.8.1/themes/base/jquery.ui.datepicker.css" />
 
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/i18n/jquery.ui.datepicker-fr.min.js"></script>
-
+		
+		<link rel="stylesheet" href="css/jquery-ui-timepicker-addon.css" />
+		<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-sliderAccess.js"></script>
+		
         <style type="text/css">
             .ui-datepicker
             {
@@ -22,7 +26,8 @@
 
         <script type="text/javascript">
             $(document).ready(function(){
-               $("input#date").datepicker();
+				$("input#date").datetimepicker();
+				$("input#date").datetimepicker('setDate', new Date());
             });
 
             $(function(){
