@@ -5,14 +5,18 @@
         <meta name="description" content="">
 
         <link rel="stylesheet" href="css/stylePostit.css" />
-
+		
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.1/themes/base/jquery-ui.css" />
         <link type="text/css" href="http://code.jquery.com/ui/1.8.1/themes/base/jquery.ui.datepicker.css" />
 
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/i18n/jquery.ui.datepicker-fr.min.js"></script>
-
+		
+		<link rel="stylesheet" href="css/jquery-ui-timepicker-addon.css" />
+		<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-sliderAccess.js"></script>
+		
         <style type="text/css">
             .ui-datepicker
             {
@@ -62,11 +66,8 @@
 						
 						
             $(document).ready(function(){
-                $('#container .sortable-list').sortable({
-                    connectWith: '#container .sortable-list'
-                });
-
-                $("input#date").datepicker();
+				$("input#date").datetimepicker();
+				$("input#date").datetimepicker('setDate', new Date());
             });
 
             $(function(){
@@ -156,22 +157,23 @@
 					var steps = project.Steps;
 					if (steps.length > 0) {
 						for (var i = 0; i < steps.length; i++) { 
-							console.log("steps id = " + steps[i].ID + " nb tasks : " + steps[i].Tasks.length);
+							//console.log("steps id = " + steps[i].ID + " nb tasks : " + steps[i].Tasks.length);
 							
-							contenuHTML += '<div id="step'+steps[i].ID+'" class="steps">';
+							contenuHTML += '<div class="steps">';
 							contenuHTML += '<div class="titreSteps">';
 							contenuHTML += steps[i].Name;
 							contenuHTML += '</div>';
                 
-							contenuHTML += '<ul class="sortable-list">';
+							contenuHTML += '<ul class="sortable-list" id="stepId'+steps[i].ID+'">';
                     		
 							// tasks = postits
 							if (steps[i].Tasks.length > 0) {
 								for (var j = 0; j < steps[i].Tasks.length; j++) { 
-									console.log("tasks id = " + steps[i].Tasks[j].ID);
-									contenuHTML += '<li class="sortable-item">';
+									//console.log("tasks id = " + steps[i].Tasks[j].ID);
+									contenuHTML += '<li class="sortable-item" id="taskId'+steps[i].Tasks[j].ID+'">';
 									contenuHTML += '<div class="postits">';
 									contenuHTML += '<div class="titrePostits">';
+									//contenuHTML += steps[i].Tasks[j].ID+' - '+steps[i].Tasks[j].Name;
 									contenuHTML += steps[i].Tasks[j].Name;
 									contenuHTML += '</div>';
 									contenuHTML += '<div class="contenuPostits">';
@@ -190,7 +192,15 @@
 					}
 				}
 				$('#container').html(contenuHTML);
-						
+				$('#container .sortable-list').sortable({
+                    connectWith: '#container .sortable-list',
+					stop: function( event, ui ) {
+						var taskDeplace = $(ui.item[0]);
+						var idTaskDeplace = taskDeplace.attr("id").split("taskId")[1];
+						var idStepCible = taskDeplace.parents('ul').attr("id").split("stepId")[1];
+						console.log("TODO task " + idTaskDeplace+ " change de step " + idStepCible);
+					}
+                });		
 			}
 
 			function suppr_onclick(id_postit){
