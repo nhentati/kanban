@@ -47,6 +47,10 @@
 			}		
 						
 			function initElemDialog(){
+				lister_user();
+				lister_state();
+				lister_categories();
+				lister_step_id();
 				$('#txtid_task').val('');
 				$('#txtname').val('');
 				$('#txtcontent').val('');
@@ -71,14 +75,24 @@
                     resizable:false,
                     modal:true,
                     buttons: {
-                        "Oui": function() {
-
-                            $(this).dialog("close");
-                        },
-                        "Non": function() {
-                            $(this).dialog("close");
-                        }
-                    }
+							"Oui": function() { 
+								id_postit=$("#id_postit_suppr").val();
+								$.ajax({
+										type: 'DELETE',
+										url: 'http://10.11.145.91:1342/ServiceTask.svc/tasks/'+id_postit,
+										success: function(response){                 
+											lister();													
+										},
+										error: function(){
+											alert('erreur');                   
+										}
+								});
+								$(this).dialog("close"); 
+							},				
+							"Non": function() { 
+								$(this).dialog("close"); 
+							}				
+						}
                 });
 
                 $('#dialog').dialog({
@@ -87,13 +101,69 @@
                     resizable:false,
                     modal:true,
                     buttons: {
-                        "Appliquer": function() {
-                            $(this).dialog("close");
-                        },
-                        "Annuler": function() {
-                            $(this).dialog("close");
-                        }
-                    }
+						"Appliquer": function() { 
+							/* traitement AJAX de la mise  jour*/
+							var data;
+							var url;
+							if ($('#txtid_project').val() != "") {
+								data = {
+									"ID":$('#txtid_task').val(),
+									"Name" :$('#txtname').val(),
+									"Assignee":$('#txtassigne').val(),
+									"Author":$('#txtauthor').val(),
+									"Content" :$('#txtcontent').val(),
+									"Completed_at" :$('#txtcompleted_at').val(),
+									"Completion" :$('#txtcompletion').val(),
+									"Created_at" :$('#txtcreated_at').val(),
+									"Estimated_time" :$('#txtestimated_time').val(),
+									"Priority" :$('#txtpriority').val(),
+									"Spend_time" :$('#txtspend_time').val(),
+									"StepID" :$('#txtstep_id').val(),
+									"Updated_at" :$('#txtupdate_at').val(),
+									"Category" :$('#txtcategory').val(),
+									"State" :$('#txtstate').val()
+										}
+								url = 'http://10.11.145.91:1342/ServiceTask.svc/tasks/update';
+							}
+							else {
+								data = {
+										"Name" :$('#txtname').val(),
+										"Assignee":$('#txtassigne').val(),
+										"Author":$('#txtauthor').val(),
+										"Content" :$('#txtcontent').val(),
+										"Completed_at" :$('#txtcompleted_at').val(),
+										"Completion" :$('#txtcompletion').val(),
+										"Created_at" :$('#txtcreated_at').val(),
+										"Estimated_time" :$('#txtestimated_time').val(),
+										"Priority" :$('#txtpriority').val(),
+										"Spend_time" :$('#txtspend_time').val(),
+										"StepID" :$('#txtstep_id').val(),
+										"Updated_at" :$('#txtupdate_at').val(),
+										"Category" :$('#txtcategory').val(),
+										"State" :$('#txtstate').val()
+										}
+								url = 'http://10.11.145.91:1342/ServiceTask.svc/tasks/create';
+							}
+							
+							$.ajax({
+									type: 'PUT',
+									url: url,
+									data: data,
+									success: function(response){                 
+										lister();
+									},
+									error: function(){
+										alert('erreur');                   
+									}
+								}
+							);
+							
+							$(this).dialog("close"); 
+						}, 
+						"Annuler": function() { 
+							$(this).dialog("close"); 
+						}				
+					}
                 });
 
             });
@@ -203,7 +273,10 @@
 						
 			function modif_onclick(id_postit){
 				initErr();
-				
+				lister_user();
+				lister_state();
+				lister_categories();
+				lister_step_id();
 				$.ajax({
 					type: 'GET',
 					url: 'http://10.11.145.91:1342/ServiceTask.svc/tasks/'+id_postit,
@@ -211,6 +284,8 @@
 					success: function(response){          
 						$('#txtid_task').val(response.Data.ID);
 						$('#txtname').val(response.Data.Name);
+						$('#txtauthor').val(response.Data.Author);
+						$('#txtassigne').val(response.Data.Assignee);
 						$('#txtcontent').val(response.Data.Content);
 						$('#txtcompleted_at').val(response.Data.Completed_at);
 						$('#txtcompletion').val(response.Data.Completion);
@@ -238,6 +313,105 @@
                 $('#dialog').dialog('open');
                 return false;
             }
+			function lister_user() {
+				$.ajax({
+					type: 'GET',
+					url: 'ajax/users.json',
+					// TODO remettre : 'http://10.11.145.91:1342/ServiceUser.svc/users' 
+					dataType: 'json',
+					success: function(response){          
+						construireListeUsersAuthor(response.Data);	
+					},
+					error: function() {
+						alert('erreur');                   
+					}
+				});
+			}
+			function lister_state() {
+				$.ajax({
+					type: 'GET',
+					url: 'ajax/states.json',
+								// TODO remettre : 'http://10.11.145.91:1342/ServiceState.svc/states'  
+					dataType: 'json',
+					success: function(response){          
+						construireListeState(response.Data);	
+					},
+					error: function() {
+						alert('erreur');                   
+					}
+				});
+			}
+			
+			function lister_categories() {
+				$.ajax({
+					type: 'GET',
+					url: 'ajax/categories.json',
+								// TODO remettre : 'http://10.11.145.91:1342/ServiceCategory.svc/categories'
+					dataType: 'json',
+					success: function(response){          
+						construireListeCategories(response.Data);	
+					},
+					error: function() {
+						alert('erreur');                   
+					}
+				});
+			}
+			
+			function lister_step_id() {
+				var idProject = getURLParameters("idProject");
+				$.ajax({
+						type: 'GET',
+						url: 'ajax/project1.json',
+						// TODO remettre url: 'http://10.11.145.91:1342/ServiceProject.svc/projects/'+idProject,
+						dataType: 'json',
+						success: function(response){          
+							construireListeStep_id(response.Data);
+						},
+						error: function() {
+							alert('erreur');                   
+						}
+				});
+			}
+			
+			function construireListeUsersAuthor(data) {
+				var contenuHTML = '';
+				for (var i = 0; i < data.length; i++) { 
+					contenuHTML += '<option value="'+data[i].ID+'">'+data[i].Username+'</option>';
+				}
+				$('#txtauthor').html(contenuHTML);
+				$('#txtassigne').html(contenuHTML);		
+			}
+			
+			function construireListeCategories(data) {
+				var contenuHTML = '';
+				for (var i = 0; i < data.length; i++) { 
+					contenuHTML += '<option value="'+data[i].ID+'">'+data[i].Name+'</option>';
+				}
+				$('#txtcategory').html(contenuHTML);
+			}
+			
+			function construireListeState(data) {
+				var contenuHTML = '';
+				for (var i = 0; i < data.length; i++) { 
+					contenuHTML += '<option value="'+data[i].ID+'">'+data[i].Label+'</option>';
+				}
+				$('#txtstate').html(contenuHTML);
+			}
+			function construireListeStep_id(data) {
+				var contenuHTML = '';
+				if (data.length > 0) {
+					var project = data[0];
+					// steps
+					var steps = project.Steps;
+					if (steps.length > 0) {
+						for (var i = 0; i < steps.length; i++) { 
+							contenuHTML += '<option value="'+steps[i].ID+'">'+steps[i].Name+'</option>';
+						}
+					}
+				}
+				$('#txtstep_id').html(contenuHTML);
+			}
+			
         </script>
     </head>
     <body>
@@ -264,18 +438,12 @@
 					</p>
 					<p>
 						<label for="txtauthor">Author : </label>
-						<select name="txtauthor">
-							<option>Nader</option>
-							<option>Rija</option>
-							<option>Alain</option>
+						<select id="txtauthor">
 						</select> 
 					</p>
 					<p>
                         <label for="txtassigne">Assigne :</label>
-                        <select name="txtassigne">
-							<option>Nader</option>
-							<option>Rija</option>
-							<option>Alain</option>
+                        <select id="txtassigne">
 						</select> 
                     </p>
 					<p>
@@ -316,26 +484,17 @@
                     </p>
 					<p>
                         <label for="txtstep_id">Step id :</label>
-                        <select name="txtstep_id">
-							<option>Nader</option>
-							<option>Rija</option>
-							<option>Alain</option>
+                        <select id="txtstep_id">
 						</select> 
                     </p>
 					<p>
                         <label for="txtcategory">Category :</label>
-                        <select name="txtcategory">
-							<option>Nader</option>
-							<option>Rija</option>
-							<option>Alain</option>
+                        <select id="txtcategory">
 						</select> 
                     </p>
 					<p>
                         <label for="txtstate">State :</label>
-                        <select name="txtstate">
-							<option>Nader</option>
-							<option>Rija</option>
-							<option>Alain</option>
+                        <select id="txtstate">
 						</select> 
                     </p>
 
