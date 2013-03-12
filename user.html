@@ -250,7 +250,7 @@
 						
 						function construireListeUsers(data) {
 							var contenuHTML = '';
-							contenuHTML += '<table width="100%">';
+							contenuHTML += '<table width="100%" class="tablesorter" id="table_resultat">';
 							contenuHTML += '<thead>';
 							contenuHTML += '<tr class="ui-widget-header">';
 							contenuHTML += '<th style="width:5%;text-align:center">Id</th>';
@@ -263,14 +263,8 @@
 							contenuHTML += '<tbody>';		
 							
 							if (data.length > 0) {
-								var classTr = "";
 								for (var i = 0; i < data.length; i++) { 
-									if (i % 2) {
-										classTr = "alt";
-									} else {
-										classTr = "";
-									}
-									contenuHTML += '<tr class='+classTr+' id="ligne'+data[i].ID+'">';
+									contenuHTML += '<tr id="ligne'+data[i].ID+'">';
 									contenuHTML += '<td style="width:5%;text-align:center"><span id="id_user'+data[i].ID+'">'+data[i].ID+'</span></td>';
 									contenuHTML += '<td style="width:30%;text-align:center">';
 									contenuHTML += '<span id="username'+data[i].ID+'">'+data[i].Username+'</span>';
@@ -284,6 +278,16 @@
 							}
 							contenuHTML += '</tbody>';
 							contenuHTML += '</table>';
+							
+							$("#table_resultat").tablesorter({
+															widgets: ['zebra'],
+															headers: { 2: { sorter: false}}
+															}) 
+												.tablesorterPager({
+															container: $("#pager"),
+															positionFixed:false
+															});
+															
 							$('#liste').html(contenuHTML);
 									
 						}
