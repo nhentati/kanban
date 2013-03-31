@@ -1,0 +1,67 @@
+(
+    [ID] => 
+    [Name] => post1
+    [Assignee] => 9
+    [Author] => 9
+    [Content] => fory
+    [Completed_at] => 31/03/2013 00:00
+    [Completion] => completion
+    [Created_at] => 29/03/2013 00:00
+    [Estimated_time] => 2
+    [Priority] => 1
+    [Spend_time] => 2
+    [StepID] => 3
+    [Updated_at] => 30/03/2013 00:00
+    [Category] => 2
+    [State] => 2
+)
+
+Task{
+	"Name":"Task1", 
+	"StepID":"1", 
+	"Content":"fu", 
+	"Completion":"50",
+	"Priority":"0", 
+	"Estimated_time":"3.4", 
+	"Spend_time":"0", 
+	"Author":{"ID":"19","Username":"Tn6o", "Email":"tn6o@ingesup.com", "Password":"fifou", "Admin":"true"}, 
+	"Assignee":{"ID":"19","Username":"Tn6o", "Email":"tn6o@ingesup.com", "Password":"fifou", "Admin":"true"}, 
+	"State":{"ID":"1", "Label":"fu"}, 
+	"Category":{"ID":"1", "Name":"Wtf"}
+}
+
+{
+		"Assignee":{
+			"Admin":true,
+			"Email":"String content",
+			"ID":2147483647,
+			"Password":"String content",
+			"Username":"String content"
+		},
+		"Author":{
+			"Admin":true,
+			"Email":"String content",
+			"ID":2147483647,
+			"Password":"String content",
+			"Username":"String content"
+		},
+		"Category":{
+			"ID":2147483647,
+			"Name":"String content"
+		},
+		"Completed_at":"\/Date(928142400000+0200)\/",
+		"Completion":2147483647,
+		"Content":"String content",
+		"Created_at":"\/Date(928142400000+0200)\/",
+		"Estimated_time":1.26743237E+15,
+		"ID":2147483647,
+		"Name":"String content",
+		"Priority":2147483647,
+		"Spend_time":1.26743237E+15,
+		"State":{
+			"ID":2147483647,
+			"Label":"String content"
+		},
+		"StepID":2147483647,
+		"Updated_at":"\/Date(928142400000+0200)\/"
+	}
