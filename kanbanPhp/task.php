@@ -435,7 +435,7 @@
 			</div>
 			<div id="content">
 				<div id="section-header">
-					<h3 id="nomProjet"></h3>
+					<h2 id="nomProjet"></h2>
 					<div id="ajout"><a href="javascript:void(0)" id="ajoutPostit" onclick="ajout_onclick();">Ajout postit</a></div>
 				</div>
 				<div id="container">
