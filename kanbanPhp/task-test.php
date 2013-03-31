@@ -446,109 +446,108 @@
 			</div>
 			<div id="content">
 	
-			<div id="section-header">
-				<h2 id="nomProjet"></h2>
-				<div id="ajout"><a href="javascript:void(0)" id="ajoutPostit" onclick="ajout_onclick();">Ajout postit</a></div>
-			</div>
+				<div id="section-header">
+					<h2 id="nomProjet"></h2>
+					<div id="ajout"><a href="javascript:void(0)" id="ajoutPostit" onclick="ajout_onclick();">Ajout postit</a></div>
+				</div>
 			
-			<div id="container">
-           
+				<div id="container">
+			   
+				</div>
+
+				<div id="dialog" title="Postit">
+					<form>
+						<div id="formBlock">
+							<p style="display:none;">
+								<label for="txtid_task">Id:</label>
+								<input type="text" id="txtid_task" readonly="readonly" />
+								<span id="errid_task" class="info"></span>
+							</p>
+							<p>
+								<label for="txtname">Name:</label>
+								<input type="text" id="txtname" onBlur="validate('name');" />
+								<span id="errname" class="info"></span>
+							</p>
+							<p>
+								<label for="txtauthor">Author : </label>
+								<select id="txtauthor">
+								</select> 
+							</p>
+							<p>
+								<label for="txtassigne">Assigne :</label>
+								<select id="txtassigne">
+								</select> 
+							</p>
+							<p>
+								<label for="txtcontent">Content :</label>
+								<textarea row="2" cols="30" id="txtcontent" onBlur="validate('content');"></textarea>
+								<span id="errcontent" class="info"></span>
+							</p>
+							<p>
+								<label for="txtcompleted_at">Completed at :</label>
+								<input type="text" id="txtcompleted_at" />
+								<span id="errcompleted_at" class="info"></span>
+							</p>
+							<p>
+								<label for="txtcompletion">Completion :</label>
+								<input type="text" id="txtcompletion" />
+								<span id="errcompletion" class="info"></span>
+							</p>
+							
+							<p>
+								<label for="txtcreated_at">Created at :</label>
+								<input type="text" id="txtcreated_at" readonly="readonly" />
+								<span id="errcreated_at" class="info"></span>
+							</p>
+							<p>
+								<label for="txtestimated_time">Estimated time :</label>
+								<input type="text" id="txtestimated_time" />
+								<span id="errestimated_time" class="info"></span>
+							</p>
+							<p>
+								<label for="txtpriority">Priority :</label>
+								<input type="text" id="txtpriority" />
+								<span id="errpriority" class="info"></span>
+							</p>
+							<p>
+								<label for="txtspend_time">Spend time :</label>
+								<input type="text" id="txtspend_time" />
+								<span id="errspend_time" class="info"></span>
+							</p>
+							<p>
+								<label for="txtstep_id">Step id :</label>
+								<select id="txtstep_id">
+								</select> 
+							</p>
+							<p>
+								<label for="txtcategory">Category :</label>
+								<select id="txtcategory">
+								</select> 
+							</p>
+							<p>
+								<label for="txtstate">State :</label>
+								<select id="txtstate">
+								</select> 
+							</p>
+
+							<p>
+								<label for="txtupdate_at">Update at :</label>
+								<input type="text" id="txtupdate_at" />
+							</p>
+						</div>
+					</form>
+				</div>
+
+				<div id="suppr_dialog" title="Suppression d'un postit">
+					<input type="hidden" id="id_postit_suppr" value="">
+					<h2>Voulez-vous vraiment supprimer ce postit ? </h2>
+				</div>
 			</div>
-
-			<div id="dialog" title="Postit">
-				<form>
-					<div id="formBlock">
-						<p style="display:none;">
-							<label for="txtid_task">Id:</label>
-							<input type="text" id="txtid_task" readonly="readonly" />
-							<span id="errid_task" class="info"></span>
-						</p>
-						<p>
-							<label for="txtname">Name:</label>
-							<input type="text" id="txtname" onBlur="validate('name');" />
-							<span id="errname" class="info"></span>
-						</p>
-						<p>
-							<label for="txtauthor">Author : </label>
-							<select id="txtauthor">
-							</select> 
-						</p>
-						<p>
-							<label for="txtassigne">Assigne :</label>
-							<select id="txtassigne">
-							</select> 
-						</p>
-						<p>
-							<label for="txtcontent">Content :</label>
-							<textarea row="2" cols="30" id="txtcontent" onBlur="validate('content');"></textarea>
-							<span id="errcontent" class="info"></span>
-						</p>
-						<p>
-							<label for="txtcompleted_at">Completed at :</label>
-							<input type="text" id="txtcompleted_at" />
-							<span id="errcompleted_at" class="info"></span>
-						</p>
-						<p>
-							<label for="txtcompletion">Completion :</label>
-							<input type="text" id="txtcompletion" />
-							<span id="errcompletion" class="info"></span>
-						</p>
-						
-						<p>
-							<label for="txtcreated_at">Created at :</label>
-							<input type="text" id="txtcreated_at" readonly="readonly" />
-							<span id="errcreated_at" class="info"></span>
-						</p>
-						<p>
-							<label for="txtestimated_time">Estimated time :</label>
-							<input type="text" id="txtestimated_time" />
-							<span id="errestimated_time" class="info"></span>
-						</p>
-						<p>
-							<label for="txtpriority">Priority :</label>
-							<input type="text" id="txtpriority" />
-							<span id="errpriority" class="info"></span>
-						</p>
-						<p>
-							<label for="txtspend_time">Spend time :</label>
-							<input type="text" id="txtspend_time" />
-							<span id="errspend_time" class="info"></span>
-						</p>
-						<p>
-							<label for="txtstep_id">Step id :</label>
-							<select id="txtstep_id">
-							</select> 
-						</p>
-						<p>
-							<label for="txtcategory">Category :</label>
-							<select id="txtcategory">
-							</select> 
-						</p>
-						<p>
-							<label for="txtstate">State :</label>
-							<select id="txtstate">
-							</select> 
-						</p>
-
-						<p>
-							<label for="txtupdate_at">Update at :</label>
-							<input type="text" id="txtupdate_at" />
-						</p>
-					</div>
-				</form>
-			</div>
-
-			<div id="suppr_dialog" title="Suppression d'un postit">
-				<input type="hidden" id="id_postit_suppr" value="">
-				<h2>Voulez-vous vraiment supprimer ce postit ? </h2>
+			<div id="push"></div>
+		
+			<div id="footer" class="">
+				<p>Pr&ecirc;t &hellip;</p>
 			</div>
 		</div>
-		<div id="push"></div>
-	</div>
-	<div id="footer" class="">
-		<p>Pr&ecirc;t &hellip;</p>
-	</div>
 	</body>
-</html>
-    </body>
 </html>

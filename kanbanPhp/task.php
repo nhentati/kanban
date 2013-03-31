@@ -1,10 +1,15 @@
+<?php
+	$page = "task";
+?>
 <html>
     <head>
         <meta charset="utf-8">
         <title></title>
         <meta name="description" content="">
 
-        <link rel="stylesheet" href="css/stylePostit.css" />
+		<link rel="stylesheet" href="css/stylePostit.css" />
+		<link rel="stylesheet" href="css/main.css">
+        
 		
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.1/themes/base/jquery-ui.css" />
         <link type="text/css" href="http://code.jquery.com/ui/1.8.1/themes/base/jquery.ui.datepicker.css" />
@@ -17,6 +22,7 @@
 		<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 		<script type="text/javascript" src="js/jquery-ui-sliderAccess.js"></script>
 		
+		<script language="javascript" src="js/main_control.js" type="text/javascript"></script>
         <style type="text/css">
             .ui-datepicker
             {
@@ -405,100 +411,129 @@
         </script>
     </head>
     <body>
-        <div id="section-header">
-            <h3 id="nomProjet"></h3>
-            <div id="ajout"><a href="javascript:void(0)" id="ajoutPostit" onclick="ajout_onclick();">Ajout postit</a></div>
-        </div>
-        <div id="container">
-           
-        </div>
-
-        <div id="dialog" title="Postit">
-            <form>
-                <div id="formBlock">
-                    <p style="display:none;">
-						<label for="txtid_task">Id:</label>
-						<input type="text" id="txtid_task" readonly="readonly" />
-						<span id="errid_task" class="info"></span>
-					</p>
-					<p>
-						<label for="txtname">Name:</label>
-						<input type="text" id="txtname" onBlur="validate('name');" />
-						<span id="errname" class="info"></span>
-					</p>
-					<p>
-						<label for="txtauthor">Author : </label>
-						<select id="txtauthor">
-						</select> 
-					</p>
-					<p>
-                        <label for="txtassigne">Assigne :</label>
-                        <select id="txtassigne">
-						</select> 
-                    </p>
-					<p>
-                        <label for="txtcontent">Content :</label>
-                        <textarea row="2" cols="30" id="txtcontent" onBlur="validate('content');"></textarea>
-						<span id="errcontent" class="info"></span>
-                    </p>
-                    <p>
-                        <label for="txtcompleted_at">Completed at :</label>
-                        <input type="text" id="txtcompleted_at" />
-						<span id="errcompleted_at" class="info"></span>
-                    </p>
-                    <p>
-                        <label for="txtcompletion">Completion :</label>
-						<input type="text" id="txtcompletion" />
-						<span id="errcompletion" class="info"></span>
-					</p>
+		<div id="wrapper" class="<?php echo $class; ?>">
+			<div id="header">
+				<div id="head_left">
+					<p id="titre"><img src="images/kanban.gif" alt="logo" style="margin-top:5px;" /></p>
+					<div id="menu">
+						<a href="javascript:void(0)" id="menu_launcher">Liste des menus</a>
+						<?php include('include/menu.php'); ?>
+					</div>
+				</div>
+				<div id="head_right">
+					<a href="deconnexion.php" id="deconnect">Se d&eacute;connecter</a>
 					
-                    <p>
-                        <label for="txtcreated_at">Created at :</label>
-                        <input type="text" id="txtcreated_at" readonly="readonly" />
-						<span id="errcreated_at" class="info"></span>
-                    </p>
-					<p>
-                        <label for="txtestimated_time">Estimated time :</label>
-                        <input type="text" id="txtestimated_time" />
-						<span id="errestimated_time" class="info"></span>
-                    </p>
-					<p>
-                        <label for="txtpriority">Priority :</label>
-                        <input type="text" id="txtpriority" />
-						<span id="errpriority" class="info"></span>
-                    </p>
-					<p>
-                        <label for="txtspend_time">Spend time :</label>
-                        <input type="text" id="txtspend_time" />
-						<span id="errspend_time" class="info"></span>
-                    </p>
-					<p>
-                        <label for="txtstep_id">Step :</label>
-                        <select id="txtstep_id">
-						</select> 
-                    </p>
-					<p>
-                        <label for="txtcategory">Category :</label>
-                        <select id="txtcategory">
-						</select> 
-                    </p>
-					<p>
-                        <label for="txtstate">State :</label>
-                        <select id="txtstate">
-						</select> 
-                    </p>
+					<?php
+						if ($ariane != "")
+						{
+					?>
+					<p id="fil_ariane">&bull; <?php echo $ariane; ?></p>
+					<?php
+						}
+					?>
+				</div>
+			</div>
+			<div id="content">
+				<div id="section-header">
+					<h3 id="nomProjet"></h3>
+					<div id="ajout"><a href="javascript:void(0)" id="ajoutPostit" onclick="ajout_onclick();">Ajout postit</a></div>
+				</div>
+				<div id="container">
+				   
+				</div>
 
-					<p>
-                        <label for="txtupdate_at">Update at :</label>
-                        <input type="text" id="txtupdate_at" />
-                    </p>
-                </div>
-            </form>
-        </div>
+				<div id="dialog" title="Postit">
+					<form>
+						<div id="formBlock">
+							<p style="display:none;">
+								<label for="txtid_task">Id:</label>
+								<input type="text" id="txtid_task" readonly="readonly" />
+								<span id="errid_task" class="info"></span>
+							</p>
+							<p>
+								<label for="txtname">Name:</label>
+								<input type="text" id="txtname" onBlur="validate('name');" />
+								<span id="errname" class="info"></span>
+							</p>
+							<p>
+								<label for="txtauthor">Author : </label>
+								<select id="txtauthor">
+								</select> 
+							</p>
+							<p>
+								<label for="txtassigne">Assigne :</label>
+								<select id="txtassigne">
+								</select> 
+							</p>
+							<p>
+								<label for="txtcontent">Content :</label>
+								<textarea row="2" cols="30" id="txtcontent" onBlur="validate('content');"></textarea>
+								<span id="errcontent" class="info"></span>
+							</p>
+							<p>
+								<label for="txtcompleted_at">Completed at :</label>
+								<input type="text" id="txtcompleted_at" />
+								<span id="errcompleted_at" class="info"></span>
+							</p>
+							<p>
+								<label for="txtcompletion">Completion :</label>
+								<input type="text" id="txtcompletion" />
+								<span id="errcompletion" class="info"></span>
+							</p>
+							
+							<p>
+								<label for="txtcreated_at">Created at :</label>
+								<input type="text" id="txtcreated_at" readonly="readonly" />
+								<span id="errcreated_at" class="info"></span>
+							</p>
+							<p>
+								<label for="txtestimated_time">Estimated time :</label>
+								<input type="text" id="txtestimated_time" />
+								<span id="errestimated_time" class="info"></span>
+							</p>
+							<p>
+								<label for="txtpriority">Priority :</label>
+								<input type="text" id="txtpriority" />
+								<span id="errpriority" class="info"></span>
+							</p>
+							<p>
+								<label for="txtspend_time">Spend time :</label>
+								<input type="text" id="txtspend_time" />
+								<span id="errspend_time" class="info"></span>
+							</p>
+							<p>
+								<label for="txtstep_id">Step :</label>
+								<select id="txtstep_id">
+								</select> 
+							</p>
+							<p>
+								<label for="txtcategory">Category :</label>
+								<select id="txtcategory">
+								</select> 
+							</p>
+							<p>
+								<label for="txtstate">State :</label>
+								<select id="txtstate">
+								</select> 
+							</p>
 
-        <div id="suppr_dialog" title="Suppression d'un postit">
-            <input type="hidden" id="id_postit_suppr" value="">
-            <h2>Voulez-vous vraiment supprimer ce postit ? </h2>
-        </div>
-    </body>
+							<p>
+								<label for="txtupdate_at">Update at :</label>
+								<input type="text" id="txtupdate_at" />
+							</p>
+						</div>
+					</form>
+				</div>
+
+				<div id="suppr_dialog" title="Suppression d'un postit">
+					<input type="hidden" id="id_postit_suppr" value="">
+					<h2>Voulez-vous vraiment supprimer ce postit ? </h2>
+				</div>
+			</div>
+			<div id="push"></div>
+			<div id="footer" class="">
+				<p>Pr&ecirc;t &hellip;</p>
+			</div>
+		</div>
+	</body>
 </html>
