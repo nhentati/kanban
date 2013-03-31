@@ -19,7 +19,11 @@
 			case "state":
 				$ariane = '<a href="javascript:void(0)">States</a> &rsaquo; <a href="javascript:void(0)">Liste</a>';
 				$titre = "States";
-				break;			
+				break;	
+			case "step":
+				$ariane = '<a href="javascript:void(0)">Steps</a> &rsaquo; <a href="javascript:void(0)">Liste</a>';
+				$titre = "Steps";
+				break;				
 		}
 	}
 ?>
