@@ -1,3 +1,28 @@
+<?php
+	$titre = "";
+	if ($_SERVER['PHP_SELF'] != "/kanban/" && $_SERVER['PHP_SELF'] != "/kanban/index.php")
+	{
+		switch ($page)
+		{
+			case "user":
+				$ariane = '<a href="javascript:void(0)">Users</a> &rsaquo; <a href="javascript:void(0)">Liste</a>';
+				$titre = "Users";
+				break;
+			case "project":
+				$ariane = '<a href="javascript:void(0)">Projects</a> &rsaquo; <a href="javascript:void(0)">Liste</a>';
+				$titre = "Projects";
+				break;
+			case "category":
+				$ariane = '<a href="javascript:void(0)">Categories</a> &rsaquo; <a href="javascript:void(0)">Liste</a>';
+				$titre = "Categories";
+				break;
+			case "state":
+				$ariane = '<a href="javascript:void(0)">States</a> &rsaquo; <a href="javascript:void(0)">Liste</a>';
+				$titre = "States";
+				break;			
+		}
+	}
+?>
 <html>
 	<head>
         <meta charset="utf-8">
@@ -5,7 +30,6 @@
         <meta name="description" content="">
         
 		<link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/style.css" />
 
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.1/themes/base/jquery-ui.css" />
         <link type="text/css" href="http://code.jquery.com/ui/1.8.1/themes/base/jquery.ui.datepicker.css" />
@@ -29,57 +53,27 @@
 	</head>
 	
 	<body>
-		<div id="wrapper" class="" style="background-image:url(images/cac_ircod.png); background-repeat: no-repeat; background-position: center bottom;">
+		<div id="wrapper" class="<?php echo $class; ?>">
 			<div id="header">
 				<div id="head_left">
-					<p id="titre"><img src="images/logo.jpg" alt="logo" style="margin-top:5px;" /></p>
+					<p id="titre"><img src="images/kanban.gif" alt="logo" style="margin-top:5px;" /></p>
 					<div id="menu">
 						<a href="javascript:void(0)" id="menu_launcher">Liste des menus</a>
-						<div id="menu_content">
-							<ul class="menu">
-								<li class="actif"><a href="javascript:void(0)">Users</a>
-									<ul class="sousmenu">
-										<li><a href="user.html">Liste</a></li>			
-									</ul>
-								</li>
-							
-								<li class=""><a href="javascript:void(0)">Projects</a>
-									<ul class="sousmenu">
-										<li><a href="project.html">Liste</a></li>
-									</ul>
-								</li>
-								
-								<li class=""><a href="javascript:void(0)">Categories</a>
-									<ul class="sousmenu">
-										<li><a href="category.html">Liste</a></li>
-									</ul>
-								</li>
-								
-								<li class=""><a href="javascript:void(0)">States</a>
-									<ul class="sousmenu">
-										<li><a href="state.html">Liste</a></li>
-									</ul>
-								</li>
-							</ul>
-						</div>
+						<?php include('include/menu.php'); ?>
 					</div>
 				</div>
 				<div id="head_right">
 					<a href="deconnexion.php" id="deconnect">Se d&eacute;connecter</a>
+					
+					<?php
+						if ($ariane != "")
+						{
+					?>
+					<p id="fil_ariane">&bull; <?php echo $ariane; ?></p>
+					<?php
+						}
+					?>
 				</div>
 			</div>
 			<div id="content">
-				<p id="le_titre">titre</p>
-			</div>
-			<div id="push"></div>
-		</div>
-		<div id="footer" class="">
-			<p>Pr&ecirc;t &hellip;</p>
-		</div>
-	</body>
-</html>
-
-	
-	
-	
-	
+				<p id="le_titre"><?php echo $titre; ?></p>

@@ -1,75 +1,7 @@
-<html>
-	<head>
-        <meta charset="utf-8">
-        <title></title>
-        <meta name="description" content="">
-        
-		<link rel="stylesheet" href="css/main.css">
-        <!--<link rel="stylesheet" href="css/style.css" />-->
-
-        <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.1/themes/base/jquery-ui.css" />
-        <link type="text/css" href="http://code.jquery.com/ui/1.8.1/themes/base/jquery.ui.datepicker.css" />
-
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/i18n/jquery.ui.datepicker-fr.min.js"></script>
-
-        <style type="text/css">
-            .ui-datepicker
-            {
-                z-index: 100002;
-            }
-        </style>
-		
-		<script language="javascript" src="js/main_control.js" type="text/javascript"></script>
-		<script type="text/javascript" src="js/jquery.tablesorter.js"></script>
-		<script type="text/javascript" src="js/jquery.tablesorter.pager.js"></script>
-		<link rel="stylesheet" type="text/css" media="screen" href="css/tablesorter.css" />
-				
-	</head>
-	
-	<body>
-		<div id="wrapper" class="" style="background-repeat: no-repeat; background-position: center bottom;">
-			<div id="header">
-				<div id="head_left">
-					<p id="titre"><!--<img src="images/logo.jpg" alt="logo" style="margin-top:5px;" />--></p>
-					<div id="menu">
-						<a href="javascript:void(0)" id="menu_launcher">Liste des menus</a>
-						<div id="menu_content">
-							<ul class="menu">
-								<li class="actif"><a href="javascript:void(0)">Users</a>
-									<ul class="sousmenu">
-										<li><a href="user.html">Liste</a></li>			
-									</ul>
-								</li>
-							
-								<li class=""><a href="javascript:void(0)">Projects</a>
-									<ul class="sousmenu">
-										<li><a href="project.html">Liste</a></li>
-									</ul>
-								</li>
-								
-								<li class=""><a href="javascript:void(0)">Categories</a>
-									<ul class="sousmenu">
-										<li><a href="category.html">Liste</a></li>
-									</ul>
-								</li>
-								
-								<li class=""><a href="javascript:void(0)">States</a>
-									<ul class="sousmenu">
-										<li><a href="state.html">Liste</a></li>
-									</ul>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div id="head_right">
-					<a href="deconnexion.php" id="deconnect">Se d&eacute;connecter</a>
-				</div>
-			</div>
-			<div id="content">
-				<p id="le_titre">Liste des projets</p>
+<?php
+	$page = "project";
+	include('include/header.php');
+?>
 				<div id="le_contenu">
 					<script type="text/javascript" language="javascript">
 						function validate(elem){
@@ -345,11 +277,7 @@
 						</h2>
 					</div>
 				</div>
-				<div id="push"></div>
-			</div>		
-		</div>
-		<div id="footer" class="">
-			<p>Pr&ecirc;t &hellip;</p>
-		</div>
-	</body>
-</html>
+				
+<?php
+	include('include/footer.php');
+?>
